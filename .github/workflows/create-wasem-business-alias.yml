@@ -1,0 +1,54 @@
+name: Create Wasem Business Alias
+
+on:
+  push:
+    paths:
+      - '.github/workflows/create-wasem-business-alias.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      T1: ${{ secrets.HOSTINGER_API_TOKEN }}
+      T2: ${{ secrets.HOSTINGER_TOKEN }}
+      T3: ${{ secrets.WASEM_HOSTINGER_API_TOKEN }}
+      T4: ${{ secrets.HST_API_TOKEN }}
+      T5: ${{ secrets.HOSTINGER_API_KEY }}
+    steps:
+      - name: Create and verify wasem@wasemsaa.cloud
+        shell: bash
+        run: |
+          set -euo pipefail
+          TOKEN="${T1:-${T2:-${T3:-${T4:-${T5:-}}}}}"
+          if [[ -z "$TOKEN" ]]; then
+            echo 'hostinger_token_available=false'
+            exit 3
+          fi
+          echo 'hostinger_token_available=true'
+          BASE='https://developers.hostinger.com/api/mail/v1'
+          ORDER='ORfeb5a520e4a11be2aa47a64858cd'
+          MAILBOX='ACf471cf3d3afa36d7089e359def2b'
+          TARGET='wasem@wasemsaa.cloud'
+          current="$(curl -fsS --max-time 30 -H "Authorization: Bearer $TOKEN" -H 'Accept: application/json' "$BASE/orders/$ORDER/aliases?per_page=100")"
+          if jq -e --arg target "$TARGET" '.data[]? | select(.address == $target)' <<<"$current" >/dev/null; then
+            echo 'alias_status=already_active'
+          else
+            body="$(mktemp)"
+            status="$(curl -sS --max-time 30 -o "$body" -w '%{http_code}' -X POST -H "Authorization: Bearer $TOKEN" -H 'Accept: application/json' -H 'Content-Type: application/json' --data '{"local_part":"wasem"}' "$BASE/mailboxes/$MAILBOX/aliases")"
+            if [[ "$status" != '200' && "$status" != '201' ]]; then
+              echo "alias_create_http=$status"
+              jq -c '{message,errors}' "$body" 2>/dev/null || true
+              exit 1
+            fi
+            echo 'alias_status=created'
+          fi
+          verified="$(curl -fsS --max-time 30 -H "Authorization: Bearer $TOKEN" -H 'Accept: application/json' "$BASE/orders/$ORDER/aliases?per_page=100")"
+          jq -e --arg target "$TARGET" '.data[]? | select(.address == $target)' <<<"$verified" >/dev/null
+          echo 'address=wasem@wasemsaa.cloud'
+          echo 'delivery_mailbox=info@wasemsaa.cloud'
+          echo 'activation=active'

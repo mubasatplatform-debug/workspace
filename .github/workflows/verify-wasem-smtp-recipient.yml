@@ -1,0 +1,42 @@
+name: Verify Wasem SMTP Recipient
+
+on:
+  push:
+    paths:
+      - '.github/workflows/verify-wasem-smtp-recipient.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Probe recipient without sending a message
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo 'dns_addresses:'
+          getent ahostsv4 mx1.hostinger.com | awk '{print $1}' | sort -u
+          {
+            printf 'EHLO verifier.wasemsaa.cloud\r\n'
+            sleep 1
+            printf 'MAIL FROM:<postmaster@wasemsaa.cloud>\r\n'
+            sleep 1
+            printf 'RCPT TO:<wasem@wasemsaa.cloud>\r\n'
+            sleep 2
+            printf 'QUIT\r\n'
+          } | timeout 25 openssl s_client -quiet -starttls smtp -crlf -connect mx1.hostinger.com:25 2>&1 | tee /tmp/smtp.log || true
+          echo '--- rcpt analysis ---'
+          grep -E '^(250|450|451|452|550|551|552|553|554|5[0-9][0-9]|4[0-9][0-9])' /tmp/smtp.log || true
+          if grep -Eiq '(^|[[:space:]])250([ -]).*(recipient|ok|accepted)|^250 2\.[0-9]\.[0-9]' /tmp/smtp.log; then
+            echo 'recipient_status=accepted'
+          elif grep -Eiq '(^|[[:space:]])55[0-9]([ -])|user unknown|mailbox.*(not found|unavailable)|recipient.*(not found|rejected)' /tmp/smtp.log; then
+            echo 'recipient_status=rejected'
+            exit 4
+          else
+            echo 'recipient_status=inconclusive'
+            exit 5
+          fi

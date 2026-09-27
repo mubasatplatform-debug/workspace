@@ -19,17 +19,16 @@ export function SandboxState() {
       <Dialog open>
         <DialogHeader className="sr-only">
           <DialogTitle className="sr-only">
-            Sandbox max. duration reached
+            انتهت مدة جلسة التشغيل
           </DialogTitle>
           <DialogDescription className="sr-only">
-            The Vercel Sandbox is already stopped. You can start a new session
-            by clicking the button below.
+            توقفت بيئة التشغيل. تقدر تبدأ جلسة جديدة من الزر بالأسفل.
           </DialogDescription>
         </DialogHeader>
         <DialogContent>
-          Sandbox max. duration for this demo has been reached
+          انتهت المدة القصوى لجلسة التشغيل الحالية
           <Button onClick={() => window.location.reload()}>
-            Start a new session
+            ابدأ جلسة جديدة
           </Button>
         </DialogContent>
       </Dialog>

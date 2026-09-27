@@ -60,19 +60,25 @@ export function Preview({ className, disabled, url }: Props) {
 
   const handleIframeError = () => {
     setIsLoading(false)
-    setError('Failed to load the page')
+    setError('تعذّر تحميل الصفحة')
   }
 
   return (
     <Panel className={className}>
       <PanelHeader>
         <div className="absolute flex items-center space-x-1">
-          <a href={currentUrl} target="_blank" className="cursor-pointer px-1">
+          <a
+            href={currentUrl}
+            target="_blank"
+            className="cursor-pointer px-1"
+            aria-label="فتح في نافذة جديدة"
+          >
             <CompassIcon className="w-4" />
           </a>
           <button
             onClick={refreshIframe}
             type="button"
+            aria-label="تحديث المعاينة"
             className={cn('cursor-pointer px-1', {
               'animate-spin': isLoading,
             })}
@@ -85,6 +91,8 @@ export function Preview({ className, disabled, url }: Props) {
           {url && (
             <input
               type="text"
+              dir="ltr"
+              aria-label="رابط المعاينة"
               className="font-mono text-xs h-6 border border-gray-200 px-4 bg-white rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent min-w-[300px]"
               onChange={(event) => setInputValue(event.target.value)}
               onClick={(event) => event.currentTarget.select()}
@@ -110,20 +118,20 @@ export function Preview({ className, disabled, url }: Props) {
                 className="w-full h-full"
                 onLoad={handleIframeLoad}
                 onError={handleIframeError}
-                title="Browser content"
+                title="معاينة التطبيق"
               />
             </ScrollArea>
 
             {isLoading && !error && (
               <div className="absolute inset-0 bg-white bg-opacity-90 flex items-center justify-center flex-col gap-2">
                 <BarLoader color="#666" />
-                <span className="text-gray-500 text-xs">Loading...</span>
+                <span className="text-gray-500 text-xs">جارٍ التحميل…</span>
               </div>
             )}
 
             {error && (
               <div className="absolute inset-0 bg-white flex items-center justify-center flex-col gap-2">
-                <span className="text-red-500">Failed to load page</span>
+                <span className="text-red-500">تعذّر تحميل الصفحة</span>
                 <button
                   className="text-blue-500 hover:underline text-sm"
                   type="button"
@@ -137,7 +145,7 @@ export function Preview({ className, disabled, url }: Props) {
                     }
                   }}
                 >
-                  Try again
+                  حاول مرة ثانية
                 </button>
               </div>
             )}

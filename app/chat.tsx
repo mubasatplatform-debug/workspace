@@ -21,6 +21,13 @@ import { useSharedChatContext } from '@/lib/chat-context'
 import { useSettings } from '@/components/settings/use-settings'
 import { useSandboxStore } from './state'
 
+const STATUS_LABELS: Record<string, string> = {
+  ready: 'جاهز',
+  submitted: 'تم الإرسال',
+  streaming: 'يكتب…',
+  error: 'خطأ',
+}
+
 interface Props {
   className: string
   modelId?: string
@@ -51,18 +58,20 @@ export function Chat({ className }: Props) {
     <Panel className={className}>
       <PanelHeader>
         <div className="flex items-center font-mono font-semibold uppercase">
-          <MessageCircleIcon className="mr-2 w-4" />
-          Chat
+          <MessageCircleIcon className="me-2 w-4" />
+          المحادثة
         </div>
-        <div className="ml-auto font-mono text-xs opacity-50">[{status}]</div>
+        <div className="ms-auto text-xs opacity-50">
+          [{STATUS_LABELS[status] ?? status}]
+        </div>
       </PanelHeader>
 
       {/* Messages Area */}
       {messages.length === 0 ? (
         <div className="flex-1 min-h-0">
-          <div className="flex flex-col justify-center items-center h-full font-mono text-sm text-muted-foreground">
+          <div className="flex flex-col justify-center items-center h-full text-sm text-muted-foreground">
             <p className="flex items-center font-semibold">
-              Click and try one of these prompts:
+              اضغط على أحد هذه الأمثلة وجرّب:
             </p>
             <ul className="p-4 space-y-1 text-center">
               {TEST_PROMPTS.map((prompt, idx) => (
@@ -98,14 +107,18 @@ export function Chat({ className }: Props) {
         <Settings />
         <ModelSelector />
         <Input
-          className="w-full font-mono text-sm rounded-sm border-0 bg-background"
+          className="w-full text-sm rounded-sm border-0 bg-background"
           disabled={status === 'streaming' || status === 'submitted'}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Type your message..."
+          placeholder="اكتب وش تبي تبني…"
           value={input}
         />
-        <Button type="submit" disabled={status !== 'ready' || !input.trim()}>
-        <SendIcon className="w-4 h-4" />
+        <Button
+          type="submit"
+          aria-label="إرسال"
+          disabled={status !== 'ready' || !input.trim()}
+        >
+          <SendIcon className="w-4 h-4 rtl:-scale-x-100" />
         </Button>
       </form>
     </Panel>

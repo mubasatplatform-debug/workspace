@@ -35,17 +35,17 @@ export function ModelSelector({ className }: { className?: string }) {
             <Loader2Icon className="h-4 w-4 animate-spin" />
           </div>
         ) : error ? (
-          <span className="text-red-500">Error</span>
+          <span className="text-red-500">خطأ</span>
         ) : !models?.length ? (
-          <span>No models</span>
+          <span>لا توجد نماذج</span>
         ) : (
-          <SelectValue placeholder="Select a model" />
+          <SelectValue placeholder="اختر النموذج" />
         )}
       </SelectTrigger>
 
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>Models</SelectLabel>
+          <SelectLabel>النماذج</SelectLabel>
           {models.map((model) => (
             <SelectItem key={model.id} value={model.id}>
               {model.label}

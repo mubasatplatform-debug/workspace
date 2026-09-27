@@ -33,20 +33,20 @@ export const ModelSelector = memo(function ModelSelector({
         {isLoading ? (
           <div className="flex items-center gap-2">
             <Loader2Icon className="h-4 w-4 animate-spin" />
-            <span>Loading</span>
+            <span>جارٍ التحميل</span>
           </div>
         ) : error ? (
-          <span className="text-red-500">Error</span>
+          <span className="text-red-500">خطأ</span>
         ) : !models?.length ? (
-          <span>No models</span>
+          <span>لا توجد نماذج</span>
         ) : (
-          <SelectValue placeholder="Select a model" />
+          <SelectValue placeholder="اختر النموذج" />
         )}
       </SelectTrigger>
 
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>Models</SelectLabel>
+          <SelectLabel>النماذج</SelectLabel>
           {models
             ?.sort((a, b) => a.label.localeCompare(b.label))
             .map((model) => (

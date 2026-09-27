@@ -10,16 +10,16 @@ export function RunCommand({ message }: { message: DataPart['run-command'] }) {
     <ToolMessage>
       <ToolHeader>
         <SquareChevronRightIcon className="w-3.5 h-3.5" />
-        {message.status === 'executing' && 'Executing'}
-        {message.status === 'waiting' && 'Waiting'}
-        {message.status === 'running' && 'Running in background'}
-        {message.status === 'done' && message.exitCode !== 1 && 'Finished'}
-        {message.status === 'done' && message.exitCode === 1 && 'Errored'}
-        {message.status === 'error' && 'Errored'}
+        {message.status === 'executing' && 'جارٍ التنفيذ'}
+        {message.status === 'waiting' && 'بالانتظار'}
+        {message.status === 'running' && 'يعمل في الخلفية'}
+        {message.status === 'done' && message.exitCode !== 1 && 'اكتمل'}
+        {message.status === 'done' && message.exitCode === 1 && 'فشل'}
+        {message.status === 'error' && 'فشل'}
       </ToolHeader>
-      <div className="relative pl-6">
+      <div className="relative ps-6">
         <Spinner
-          className="absolute left-0 top-0"
+          className="absolute start-0 top-0"
           loading={['executing', 'waiting'].includes(message.status)}
         >
           {(message.exitCode && message.exitCode > 0) ||
@@ -29,9 +29,11 @@ export function RunCommand({ message }: { message: DataPart['run-command'] }) {
             <CheckIcon className="w-4 h-4" />
           )}
         </Spinner>
-        <Streamdown>{`\`${message.command} ${message.args.join(
-          ' '
-        )}\``}</Streamdown>
+        <div dir="ltr">
+          <Streamdown>{`\`${message.command} ${message.args.join(
+            ' '
+          )}\``}</Streamdown>
+        </div>
       </div>
     </ToolMessage>
   )

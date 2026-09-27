@@ -13,11 +13,11 @@ export function CreateSandbox({ message }: Props) {
     <ToolMessage>
       <ToolHeader>
         <BoxIcon className="w-3.5 h-3.5" />
-        Create Sandbox
+        تجهيز بيئة التشغيل
       </ToolHeader>
-      <div className="relative pl-6 min-h-5">
+      <div className="relative ps-6 min-h-5">
         <Spinner
-          className="absolute left-0 top-0"
+          className="absolute start-0 top-0"
           loading={message.status === 'loading'}
         >
           {message.status === 'error' ? (
@@ -27,9 +27,9 @@ export function CreateSandbox({ message }: Props) {
           )}
         </Spinner>
         <span>
-          {message.status === 'done' && 'Sandbox created successfully'}
-          {message.status === 'loading' && 'Creating Sandbox'}
-          {message.status === 'error' && 'Failed to create sandbox'}
+          {message.status === 'done' && 'تم تجهيز بيئة التشغيل'}
+          {message.status === 'loading' && 'جارٍ تجهيز بيئة التشغيل'}
+          {message.status === 'error' && 'تعذّر تجهيز بيئة التشغيل'}
         </span>
       </div>
     </ToolMessage>

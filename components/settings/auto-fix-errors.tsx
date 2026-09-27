@@ -11,15 +11,15 @@ export function AutoFixErrors() {
     >
       <div className="space-y-1 flex-1 pointer-events-none">
         <Label className="text-sm text-foreground" htmlFor="auto-fix">
-          Auto-fix errors
+          إصلاح الأخطاء تلقائيًا
         </Label>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          Automatically detects and fixes errors in generated code.
+          يكتشف الأخطاء في الكود الناتج ويصلحها تلقائيًا.
         </p>
       </div>
       <Checkbox
         id="auto-fix"
-        className="ml-3 pointer-events-none"
+        className="ms-3 pointer-events-none"
         checked={fixErrors}
         onCheckedChange={(checked) =>
           setFixErrors(checked === 'indeterminate' ? false : checked)

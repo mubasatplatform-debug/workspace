@@ -17,7 +17,7 @@ export function Reasoning({
     return null
   }
 
-  const text = part.text || '_Thinking_'
+  const text = part.text || '_يفكّر…_'
   const isStreaming = part.state === 'streaming'
   const firstLine = text.split('\n')[0].replace(/\*\*/g, '')
   const hasMoreContent = text.includes('\n') || text.length > 80
@@ -35,7 +35,7 @@ export function Reasoning({
       onClick={handleClick}
     >
       <div className="px-3 py-2">
-        <div className="text-secondary-foreground font-mono leading-normal">
+        <div className="text-secondary-foreground leading-normal" dir="auto">
           {isExpanded || !hasMoreContent ? (
             <Streamdown>{text}</Streamdown>
           ) : (

@@ -43,21 +43,21 @@ export const Message = memo(function Message({ message }: Props) {
     >
       <div
         className={cn({
-          'mr-20': message.role === 'assistant',
-          'ml-20': message.role === 'user',
+          'me-20': message.role === 'assistant',
+          'ms-20': message.role === 'user',
         })}
       >
         {/* Message Header */}
-        <div className="flex items-center gap-2 text-sm font-medium font-mono text-primary mb-1.5">
+        <div className="flex items-center gap-2 text-sm font-medium text-primary mb-1.5">
           {message.role === 'user' ? (
             <>
-              <UserIcon className="ml-auto w-4" />
-              <span>You</span>
+              <UserIcon className="ms-auto w-4" />
+              <span>أنت</span>
             </>
           ) : (
             <>
               <BotIcon className="w-4" />
-              <span>Assistant ({message.metadata?.model})</span>
+              <span>المساعد ({message.metadata?.model})</span>
             </>
           )}
         </div>

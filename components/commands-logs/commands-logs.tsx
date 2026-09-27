@@ -21,14 +21,12 @@ export function CommandsLogs(props: Props) {
   return (
     <Panel className={props.className}>
       <PanelHeader>
-        <SquareChevronRight className="mr-2 w-4" />
-        <span className="font-mono uppercase font-semibold">
-          Sandbox Remote Output
-        </span>
+        <SquareChevronRight className="me-2 w-4 rtl:-scale-x-100" />
+        <span className="font-semibold">سجل التنفيذ</span>
       </PanelHeader>
       <div className="h-[calc(100%-2rem)]">
         <ScrollArea className="h-full">
-          <div className="p-2 space-y-2">
+          <div className="p-2 space-y-2" dir="ltr">
             {props.commands.map((command) => {
               const date = new Date(command.startedAt).toLocaleTimeString(
                 'en-US',

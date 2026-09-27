@@ -13,7 +13,7 @@ export function ReportErrors({
     <ToolMessage>
       <ToolHeader>
         <BugIcon className="w-3.5 h-3.5" />
-        <span>Auto-detected errors</span>
+        <span>أخطاء تم اكتشافها تلقائيًا</span>
       </ToolHeader>
       <div className="relative min-h-5">
         <Streamdown>{message.summary}</Streamdown>

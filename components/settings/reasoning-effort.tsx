@@ -17,15 +17,15 @@ export function ReasoningEffort() {
     >
       <div className="flex-1 space-y-1 pointer-events-none">
         <Label className="text-sm text-foreground" htmlFor="effort-level">
-          Higher Effort Level
+          تفكير أعمق
         </Label>
         <p className="text-sm leading-relaxed text-muted-foreground">
-          With GPT-5.3 Codex, you can request higher reasoning effort level.
+          مع GPT-5.3 Codex تقدر تطلب مستوى تفكير أعلى.
         </p>
       </div>
       <Checkbox
         id="effort-level"
-        className="ml-3 pointer-events-none"
+        className="ms-3 pointer-events-none"
         checked={effort === "medium"}
         onCheckedChange={(checked) =>
           setEffort(checked === true ? "medium" : "low")

@@ -26,11 +26,11 @@ export function GenerateFiles(props: {
         <CloudUploadIcon className="w-3.5 h-3.5" />
         <span>
           {props.message.status === 'done'
-            ? 'Uploaded files'
-            : 'Generating files'}
+            ? 'تم رفع الملفات'
+            : 'جارٍ إنشاء الملفات'}
         </span>
       </ToolHeader>
-      <div className="text-sm relative min-h-5">
+      <div className="text-sm relative min-h-5" dir="ltr">
         {generated.map((path, index) => (
           <div className="flex items-center" key={index}>
             <CheckIcon className="w-4 h-4 mx-1" />

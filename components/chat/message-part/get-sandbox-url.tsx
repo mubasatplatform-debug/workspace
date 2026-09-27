@@ -13,21 +13,21 @@ export function GetSandboxURL({
     <ToolMessage>
       <ToolHeader>
         <LinkIcon className="w-3.5 h-3.5" />
-        <span>Get Sandbox URL</span>
+        <span>رابط المعاينة</span>
       </ToolHeader>
-      <div className="relative pl-6 min-h-5">
+      <div className="relative ps-6 min-h-5">
         <Spinner
-          className="absolute left-0 top-0"
+          className="absolute start-0 top-0"
           loading={message.status === 'loading'}
         >
           <CheckIcon className="w-4 h-4" />
         </Spinner>
         {message.url ? (
-          <a href={message.url} target="_blank">
+          <a href={message.url} target="_blank" dir="ltr">
             {message.url}
           </a>
         ) : (
-          <span>Getting Sandbox URL</span>
+          <span>جارٍ تجهيز رابط المعاينة</span>
         )}
       </div>
     </ToolMessage>

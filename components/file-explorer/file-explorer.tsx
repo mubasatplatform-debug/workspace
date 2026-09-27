@@ -76,16 +76,16 @@ export const FileExplorer = memo(function FileExplorer({
   return (
     <Panel className={className}>
       <PanelHeader>
-        <FileIcon className="w-4 mr-2" />
-        <span className="font-mono uppercase font-semibold">
-          Sandbox Remote Filesystem
-        </span>
+        <FileIcon className="w-4 me-2" />
+        <span className="font-semibold">ملفات المشروع</span>
         {selected && !disabled && (
-          <span className="ml-auto text-gray-500">{selected.path}</span>
+          <span className="ms-auto text-gray-500" dir="ltr">
+            {selected.path}
+          </span>
         )}
       </PanelHeader>
 
-      <div className="flex text-sm h-[calc(100%-2rem-1px)]">
+      <div className="flex text-sm h-[calc(100%-2rem-1px)]" dir="ltr">
         <ScrollArea className="w-1/4 border-r border-primary/18 flex-shrink-0">
           <div>{renderFileTree(fs)}</div>
         </ScrollArea>

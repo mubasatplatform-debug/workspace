@@ -7,8 +7,7 @@ import type { LanguageModelV3 } from '@ai-sdk/provider'
 const gateway = createGatewayProvider({
   baseURL: process.env.AI_GATEWAY_BASE_URL,
   headers: {
-    'http-referer': 'https://oss-vibe-coding-platform.vercel.app/',
-    'x-title': 'Vibe Coding Platform',
+    'x-title': 'Mubassat Vibe Coding',
   },
 })
 
@@ -37,12 +36,11 @@ export function getModelOptions(
   }
 
   if (
-    modelId === Models.AnthropicClaudeSonnet46 ||
-    modelId === Models.AnthropicClaudeOpus46
+    modelId === Models.AnthropicClaudeSonnet5 ||
+    modelId === Models.AnthropicClaudeOpus5
   ) {
     return {
       model: gateway(modelId),
-      headers: { 'anthropic-beta': 'fine-grained-tool-streaming-2025-05-14' },
       providerOptions: {
         anthropic: {
           cacheControl: { type: 'ephemeral' },

@@ -1,6 +1,5 @@
 'use client'
 
-import type { ReactNode } from 'react'
 import { Button } from '@/components/ui/button'
 import { InfoIcon } from 'lucide-react'
 import { create } from 'zustand'
@@ -47,39 +46,21 @@ export function Welcome(props: {
           onClick={(event) => event.stopPropagation()}
         >
           <div className="p-6 space-y-4 ">
-            <h1 className="text-2xl sans-serif font-semibold tracking-tight mb-7">
-              OSS Vibe Coding Platform
+            <h1 className="text-2xl font-semibold tracking-tight mb-7">
+              مبسّط: ابنِ تطبيقك بالكلام
             </h1>
             <p className="text-base text-primary">
-              This is a <strong>demo</strong> of an end-to-end coding platform
-              where the user can enter text prompts, and the agent will create a
-              full stack application.
+              اكتب بالعربي وش تبي تبني، والمساعد يكتب الكود ويشغّله لك في بيئة
+              معزولة، وتشوف النتيجة مباشرة في المعاينة.
             </p>
             <p className="text-base text-secondary-foreground">
-              It uses Vercel&apos;s AI Cloud services like{' '}
-              <ExternalLink href="https://vercel.com/docs/vercel-sandbox">
-                Sandbox
-              </ExternalLink>{' '}
-              for secure code execution,{' '}
-              <ExternalLink href="https://vercel.com/docs/ai-gateway">
-                AI Gateway
-              </ExternalLink>{' '}
-              for Claude, GPT, and Grok model support,{' '}
-              <ExternalLink href="https://vercel.com/fluid">
-                Fluid Compute
-              </ExternalLink>{' '}
-              for efficient rendering and streaming, and it&apos;s built with{' '}
-              <ExternalLink href="https://nextjs.org/">Next.js</ExternalLink>{' '}
-              and the{' '}
-              <ExternalLink href="https://ai-sdk.dev/docs/introduction">
-                AI SDK
-              </ExternalLink>
-              .
+              التطبيقات تُبنى افتراضيًا بالعربي وباتجاه من اليمين لليسار،
+              والأسعار بالريال السعودي. تقدر تطلب أي تعديل بعدها بنفس المحادثة.
             </p>
           </div>
           <footer className="bg-secondary flex justify-end p-4 border-t border-border">
             <Button className="cursor-pointer" onClick={handleDismiss}>
-              Try now
+              ابدأ الآن
             </Button>
           </footer>
         </div>
@@ -97,26 +78,7 @@ export function ToggleWelcome() {
       variant="outline"
       size="sm"
     >
-      <InfoIcon /> <span className="hidden lg:inline">What&apos;s this?</span>
+      <InfoIcon /> <span className="hidden lg:inline">وش هذا؟</span>
     </Button>
-  )
-}
-
-function ExternalLink({
-  children,
-  href,
-}: {
-  children: ReactNode
-  href: string
-}) {
-  return (
-    <a
-      className="underline underline-offset-3 text-primary"
-      href={href}
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      {children}
-    </a>
   )
 }
